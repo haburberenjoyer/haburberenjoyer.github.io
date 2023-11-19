@@ -90,6 +90,7 @@
     <input type="text" id="inputText" placeholder="Enter Morse Code">
     <br>
     <button onclick="convertMorse()">Convert</button>
+    <button onclick="generateRandomMorse()">Random Morse</button>
   </div>
 
   <script>
@@ -119,6 +120,13 @@
       };
 
       return morseCode.split(' ').map(code => morseMap[code] || '?').join('');
+
+          function generateRandomMorse() {
+      const morseChars = ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....', '..', '.---', '-.-', '.-..', '--', '-.', '---', '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..', '/'];
+      const randomIndex = Math.floor(Math.random() * morseChars.length);
+      const randomMorseChar = morseChars[randomIndex];
+      document.getElementById('inputText').value = randomMorseChar;
+    }
     }
   </script>
 </body>
