@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Morse Code Converter</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(to bottom right, #00FFFF, #800080);
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      text-align: center;
+      padding: 20px;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    input[type="text"] {
+      padding: 10px;
+      margin: 10px 0;
+      width: 200px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      border-radius: 4px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Morse Code Converter</h1>
+    <input type="text" id="inputText" placeholder="Enter Morse Code">
+    <br>
+    <button onclick="convertMorse()">Convert</button>
+  </div>
+
+  <script>
+    function convertMorse() {
+      const input = document.getElementById('inputText').value.trim();
+      const morseRegex = /^[.-/ ]+$/; // Regular expression for Morse code characters
+
+      if (morseRegex.test(input)) {
+        const decodedText = morseToText(input);
+        alert('Decoded text: ' + decodedText);
+      } else {
+        alert('Please enter valid Morse code characters only.');
+      }
+    }
+
+    function morseToText(morseCode) {
+      // Morse code to text conversion logic here
+      // Implement your own logic or use a library for Morse code conversion
+      // For simplicity, assuming a simple mapping of Morse code characters to letters
+      const morseMap = {
+        '.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E',
+        '..-.': 'F', '--.': 'G', '....': 'H', '..': 'I', '.---': 'J',
+        '-.-': 'K', '.-..': 'L', '--': 'M', '-.': 'N', '---': 'O',
+        '.--.': 'P', '--.-': 'Q', '.-.': 'R', '...': 'S', '-': 'T',
+        '..-': 'U', '...-': 'V', '.--': 'W', '-..-': 'X', '-.--': 'Y',
+        '--..': 'Z', '/': ' ' // Adding support for space in Morse code
+      };
+
+      return morseCode.split(' ').map(code => morseMap[code] || '?').join('');
+    }
+  </script>
+</body>
+</html>
