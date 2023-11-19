@@ -92,6 +92,9 @@
     <br>
     <button onclick="convertMorse()">Convert</button>
     <button onclick="generateRandomMorse()">Random Morse</button>
+    <br>
+    <button onclick="increaseRainSize()">Increase Rain</button>
+    <button onclick="decreaseRainSize()">Decrease Rain2</button>
   </div>
 
   <script>
@@ -129,7 +132,21 @@
 
       
       return morseCode.split(' ').map(code => morseMap[code] || '?').join('');
+    function increaseRainSize() {
+      const rain = document.querySelector('.rain');
+      const currentSize = window.getComputedStyle(rain).getPropertyValue('width');
+      const newSize = parseInt(currentSize) + 5 + 'px';
+      rain.style.width = newSize;
+      rain.style.height = newSize;
+    }
 
+    function decreaseRainSize() {
+      const rain2 = document.querySelector('.rain2');
+      const currentSize = window.getComputedStyle(rain2).getPropertyValue('width');
+      const newSize = parseInt(currentSize) - 5 + 'px';
+      rain2.style.width = newSize;
+      rain2.style.height = newSize;
+    }
 
     }
   </script>
