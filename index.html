@@ -13,13 +13,16 @@
       height: 100vh;
       background: linear-gradient(to bottom right, #00FFFF, #800080);
       font-family: Arial, sans-serif;
+      overflow: hidden;
     }
     .container {
+      position: relative;
       text-align: center;
       padding: 20px;
       border-radius: 8px;
       background-color: rgba(255, 255, 255, 0.8);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 1;
     }
     input[type="text"] {
       padding: 10px;
@@ -40,9 +43,48 @@
     button:hover {
       background-color: #45a049;
     }
+    /* Animace */
+    .rain {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      background-image: url('https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Terminator-2-judgement-day.jpg/220px-Terminator-2-judgement-day.jpg');
+      background-size: cover;
+      animation: fall 5s linear infinite;
+    }
+    .rain2 {
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      width: 50px;
+      height: 50px;
+      background-image: url('https://img.ihned.cz/attachment.php/270/69234270/4H8hy5N1pjOFKb2T7GR0vPskCALBnQSE/skills-competition-2460811_1920.jpg');
+      background-size: cover;
+      animation: fall2 7s linear infinite;
+    }
+    @keyframes fall {
+      0% {
+        transform: translate(-25%, 0);
+      }
+      100% {
+        transform: translate(-25%, 100vh);
+      }
+    }
+    @keyframes fall2 {
+      0% {
+        transform: translate(25%, 0);
+      }
+      100% {
+        transform: translate(25%, 100vh);
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="rain"></div>
+  <div class="rain2"></div>
   <div class="container">
     <h1>Morse Code Converter</h1>
     <input type="text" id="inputText" placeholder="Enter Morse Code">
