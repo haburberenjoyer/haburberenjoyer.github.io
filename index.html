@@ -7,13 +7,11 @@
     body {
       margin: 0;
       padding: 0;
-      display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       background-image: url("https://i.pinimg.com/originals/79/52/a0/7952a06a5112c15e004c0657868cc4e6.gif");
-      background-size: cover;
-      font-family: Comic Sans MS”, “Comic Sans”, cursive;
+      font-family: Arial, sans-serif;
       overflow: hidden;
     }
     .container {
@@ -44,102 +42,121 @@
     button:hover {
       background-color: #45a049;
     }
-    /* Animace */
-    .rain {
-      position: absolute;
-      top: -50px;
-      left: 50%;
+    .rain, .rain2 {
       width: 50px;
       height: 50px;
-      background-image: url("https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Terminator-2-judgement-day.jpg/220px-Terminator-2-judgement-day.jpg");
-      background-size: cover;
-      animation: fall 5s linear infinite;
-            width: 50px;
-      height: 50px;
     }
-    .rain2 {
+
+    .moving-image {
       position: absolute;
-      top: -50px;
-      left: 50%;
-      width: 50px;
-      height: 50px;
-      background-image: url("https://img.ihned.cz/attachment.php/270/69234270/4H8hy5N1pjOFKb2T7GR0vPskCALBnQSE/skills-competition-2460811_1920.jpg");
-      background-size: cover;
-      animation: fall2 7s linear infinite;
-            width: 50px;
-      height: 50px;
+      top: 50%;
+      left: -100px;
+      width: 100px;
+      height: 100px;
+      animation: moveImage 0.5s linear infinite;
+    }    .moving-image2 {
+      position: absolute;
+      top: 50%;
+      left: -100px;
+      width: 100px;
+      height: 100px;
+      animation: moveImage 0.1s linear infinite;
+    }.moving-image3 {
+      position: absolute;
+      top: 50%;
+      left: -100px;
+      width: 100px;
+      height: 100px;
+      animation: moveImage 10s linear infinite;
     }
-    @keyframes fall {
-      0% {
-        transform: translate(-25%, 0);
-      }
-      100% {
-        transform: translate(-25%, 100vh);
-      }
-    }
-    @keyframes fall2 {
-      0% {
-        transform: translate(25%, 0);
-      }
-      100% {
-        transform: translate(25%, 100vh);
-      }
-    }
+    /* Přidáme animaci */
+    @keyframes moveImage {
+      to {
+        left: 100%;
+      }}
   </style>
 </head>
 <body>
   <div class="rain"></div>
-  <div class="rain2"></div>
+  <div class="moving-image">
+    <img src="https://th.bing.com/th/id/OIP.CicOQns2WpFbU9hjpgKCjQHaHa?rs=1&pid=ImgDetMains" alt="Moving Image">
+  </div>
+  <div class="moving-image2">
+    <img src="https://th.bing.com/th/id/OIP.CicOQns2WpFbU9hjpgKCjQHaHa?rs=1&pid=ImgDetMains" alt="Moving Image">
+  </div>  <div class="moving-image3">
+    <img src="https://th.bing.com/th/id/OIP.CicOQns2WpFbU9hjpgKCjQHaHa?rs=1&pid=ImgDetMains" alt="Moving Image">
+  </div>
   <div class="container">
     <h1>Morse Code Converter</h1>
-    <input type="text" id="inputText" placeholder="Enter Morse Code">
+    <input type="text" id="morseInput" placeholder="Enter Morse Code">
     <br>
     <button onclick="convertMorse()">Convert</button>
     <button onclick="generateRandomMorse()">Random Morse</button>
     <br>
-    <button onclick="increaseRainSize()">Increase Rain</button>
-    <button onclick="decreaseRainSize()">Decrease Rain2</button>
+    <button onclick="increaseRainSize()">swag</button>
   </div>
 
   <script>
-    function convertMorse() {
-      const input = document.getElementById('inputText').value.trim();
-      const morseRegex = /^[.-/ ]+$/; // Regular expression for Morse code characters
+  function convertMorse() {
+    const morseInput = document.getElementById('morseInput').value.trim();
+    const morseRegex = /^[.-\s]+$/; // Regex pro kontrolu Morseovy abecedy
+    if (morseRegex.test(morseInput)) {
+      const morseMap = {
+        ".-": "A", "-...": "B", "-.-.": "C", "-..": "D", ".": "E",
+        "..-.": "F", "--.": "G", "....": "H", "..": "I", ".---": "J",
+        "-.-": "K", ".-..": "L", "--": "M", "-.": "N", "---": "O",
+        ".--.": "P", "--.-": "Q", ".-.": "R", "...": "S", "-": "T",
+        "..-": "U", "...-": "V", ".--": "W", "-..-": "X", "-.--": "Y",
+        "--..": "Z", ".----": "1", "..---": "2", "...--": "3", "....-": "4",
+        ".....": "5", "-....": "6", "--...": "7", "---..": "8", "----.": "9",
+        "-----": "0", ".-.-.-": ".", "--..--": ",", "..--..": "?", "-..-.": "/",
+        "-....-": "-", "-.--.": "(", "-.--.-": ")", ".----.": "'", "-.-.--": "!",
+        "-...-": "="
+        // Doplnění ostatních znaků Morseovy abecedy
+      };
 
-      if (morseRegex.test(input)) {
-        const decodedText = morseToText(input);
-        alert('Decoded text: ' + decodedText);
-      } else {
-        alert('Please enter valid Morse code characters only.');
+      const morseCodes = morseInput.split(" ");
+      let result = '';
+      for (let code of morseCodes) {
+        if (morseMap[code]) {
+          result += morseMap[code];
+        }
       }
+
+      if (result !== '') {
+        alert(result);
+      } else {
+        alert("m");
+      }
+    } else {
+      alert("n");
+    }
+  }
+
+    function generateRandomMorse() {
+      const morseChars = ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....', '..', '.---', '-.-', '.-..', '--', '-.', '---', '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..', '/'];
+      const randomIndex = Math.floor(Math.random() * morseChars.length);
+      const randomMorseChar = morseChars[randomIndex];
+      document.getElementById('morseInput').value = randomMorseChar;
     }
 
     function morseToText(morseCode) {
-      // Morse code to text conversion logic here
-      // Implement your own logic or use a library for Morse code conversion
-      // For simplicity, assuming a simple mapping of Morse code characters to letters
       const morseMap = {
         '.-': 'A', '-...': 'B', '-.-.': 'C', '-..': 'D', '.': 'E',
         '..-.': 'F', '--.': 'G', '....': 'H', '..': 'I', '.---': 'J',
         '-.-': 'K', '.-..': 'L', '--': 'M', '-.': 'N', '---': 'O',
         '.--.': 'P', '--.-': 'Q', '.-.': 'R', '...': 'S', '-': 'T',
         '..-': 'U', '...-': 'V', '.--': 'W', '-..-': 'X', '-.--': 'Y',
-        '--..': 'Z', '/': ' ' // Adding support for space in Morse code
+        '--..': 'Z', '/': ' '
       };
 
-          function generateRandomMorse() {
-      const morseChars = ['.-', '-...', '-.-.', '-..', '.', '..-.', '--.', '....', '..', '.---', '-.-', '.-..', '--', '-.', '---', '.--.', '--.-', '.-.', '...', '-', '..-', '...-', '.--', '-..-', '-.--', '--..', '/'];
-      const randomIndex = Math.floor(Math.random() * morseChars.length);
-      const randomMorseChar = morseChars[randomIndex];
-      document.getElementById('inputText').value = randomMorseChar;
+      return morseCode.split(' ').map(code => morseMap[code] || '?').join('');
     }
 
-      
-      return morseCode.split(' ').map(code => morseMap[code] || '?').join('');
     function increaseRainSize() {
       const rain = document.querySelector('.rain');
       const currentSize = window.getComputedStyle(rain).getPropertyValue('width');
-      const newSize = parseInt(currentSize) + 5 + 'px';
+      const newSize = parseInt(currentSize) + 50 + 'px';
       rain.style.width = newSize;
       rain.style.height = newSize;
     }
@@ -147,12 +164,11 @@
     function decreaseRainSize() {
       const rain2 = document.querySelector('.rain2');
       const currentSize = window.getComputedStyle(rain2).getPropertyValue('width');
-      const newSize = parseInt(currentSize) - 5 + 'px';
+      const newSize = parseInt(currentSize) - 15 + 'px';
       rain2.style.width = newSize;
       rain2.style.height = newSize;
     }
 
-    }
   </script>
 </body>
 </html>
